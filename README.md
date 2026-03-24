@@ -88,7 +88,7 @@ Feature pipeline (used during training and prediction):
 Evaluation approach:
 - 80/20 train-test split with stratification
 - 5-fold stratified cross-validation
-- Metrics: Accuracy, Confusion Matrix, Precision/Recall/F1
+- Metrics: Accuracy, Precision/Recall/F1
 
 Result summary:
 - Both models achieve about 81% accuracy.
@@ -296,9 +296,6 @@ And use `stratify=y` in `train_test_split` so that **the class distribution in t
 
 - **Logistic Regression Model Overall Performance**
 
-  The model performs well at distinguishing between survivors and non-survivors, correctly identifying most passengers. It occasionally overestimates survival, but overall the confusion matrix shows that the model makes relatively few misclassifications and captures the patterns in the data effectively.
-
-  ![confusion matrix](web/static/images/confusion_matrix.jpg)
 
   | Class               | Precision | Recall | F1-Score  | Support |
   | ------------------- | --------- | ------ | --------- | ------- |

@@ -1,25 +1,28 @@
 name: titanic-capstone-env
- 
+
 channels:
   - conda-forge
   - defaults
- 
+
 dependencies:
-  - python=3.14
-  - pip
-  - django=6
-  - pillow
-  - psycopg2
-  - python-dotenv
- 
-  # ML stack
+  - python=3.10
+
+  # Core data science
   - numpy
   - pandas
   - scikit-learn
+
+  # Visualization
   - matplotlib
   - seaborn
-  - jupyterlab
- 
+
+  # Jupyter
+  - notebook
+  - ipykernel
+
+  # Utilities
+  - pip
+
+  # Pip packages (if needed)
   - pip:
-      - djangorestframework
       - joblib

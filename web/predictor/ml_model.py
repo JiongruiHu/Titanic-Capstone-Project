@@ -1,13 +1,15 @@
 import os
 import pickle
-import numpy as np
 import pandas as pd
+from django.conf import settings
 
-# Get path for the folder
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "titanic_model.pkl")
 
-print(BASE_DIR)
+MODEL_PATH = os.path.join(settings.BASE_DIR, "models", "titanic_model_RF.pkl")
+
+#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#MODEL_PATH = os.path.join(BASE_DIR, "titanic_model_RF.pkl")
+
+#print(BASE_DIR)
 print(MODEL_PATH)
 
 # Load the model

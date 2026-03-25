@@ -1,23 +1,17 @@
-import os
-import pickle
+from pathlib import Path
+import joblib
 import pandas as pd
-from django.conf import settings
 
 
-MODEL_PATH = os.path.join(settings.BASE_DIR, "models", "titanic_model_RF.pkl")
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parents[1]
+MODEL_PATH = PROJECT_ROOT/"models"/"titanic_model_RF.pkl"
 
-#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-#MODEL_PATH = os.path.join(BASE_DIR, "titanic_model_RF.pkl")
-
-#print(BASE_DIR)
-print(MODEL_PATH)
-
-# Load the model
-with open(MODEL_PATH, "rb") as f:
-    model = pickle.load(f)
+bundle = joblib.load(MODEL_PATH)
+model = bundle["model"]
+features = bundle["features"]
 
 # Convert input data from prediction form into model data form
-
 def preprocess_data(input_data):
 
     # Convert age input to One Hot encoded AgeBin Features
@@ -29,11 +23,11 @@ def preprocess_data(input_data):
     elif 19< age <= 39:
         age_bin = "Adult"
     elif 39< age <= 59:
-        age_bin = "Middle Aged"
+        age_bin = "Middle_Aged"
     else:
         age_bin = "Senior"
 
-    age_bins = ["Teen","Adult","Middle Aged", "Senior"] #Child is the baseline
+    age_bins = ["Teen","Adult","Middle_Aged", "Senior"] #Child is the baseline
     agebin_dict = {f"AgeBin_{a}": int(age_bin == a) for a in age_bins}
     
     # Convert embarked input to One Hot encoded Embarked Features
@@ -50,7 +44,7 @@ def preprocess_data(input_data):
     
     '''
     Order of the features in our model as following:
-        "Sex","Fare","FamilySize",
+        "Sex_int","Fare","FamilySize",
         "Pclass_2", "Pclass_3",
         "AgeBin_Child","AgeBin_Teen","AgeBin_Adult", "AgeBin_Middle Aged","AgeBin_Senior",
         "Embarked_C","Embarked_Q","Embarked_S",
@@ -58,7 +52,7 @@ def preprocess_data(input_data):
     '''
 
     data = {
-        "Sex": input_data["gender"],
+        "Sex_int": input_data["gender"],
         "Fare": input_data["ticket_fare"],
         "FamilySize": input_data["siblings_or_spouses"] + input_data["parch"] + 1,
         **pclass_dict,
@@ -67,11 +61,10 @@ def preprocess_data(input_data):
         **title_dict,
               
     }
-    print(data)
+  
     # The dataset is Dataframe in our training model, so important to convert to df form
     df = pd.DataFrame([data])
     return df 
-
 
 def prediction(input_data):
     X = preprocess_data(input_data)

@@ -13,18 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Clean old Conda environment
-        run: |
-          conda env remove -n titanic-capstone-env || true
-    
-      - name: Set up Miniconda
-        uses: conda-incubator/setup-miniconda@v3
+      - name: Setup Python and install dependencies
+        uses: actions/setup-python@4
         with:
-          auto-update-conda: true
-          environment-file: environment.yml
-          activate-environment: titanic-capstone-env
-          use-mamba: true
-          use-only-tar-bz2: False
+          python-version : '3.12'
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
           
       - name: Check Python and Django
         run: |

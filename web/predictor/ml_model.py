@@ -4,8 +4,7 @@ import pandas as pd
 
 
 BASE_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = BASE_DIR.parents[1]
-MODEL_PATH = PROJECT_ROOT/"models"/"titanic_model_RF.pkl"
+MODEL_PATH = BASE_DIR/"ml_models"/"titanic_model_LR.pkl"
 
 bundle = joblib.load(MODEL_PATH)
 model = bundle["model"]

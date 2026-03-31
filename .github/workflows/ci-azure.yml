@@ -1,0 +1,49 @@
+name: Deploy Titanic Django to Azure 
+on:
+  push:
+    branches:
+      - dev
+      - feature/ci-azure
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 1️⃣ Setup Conda environment
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          python-version: 3.12
+          environment-file: environment.yml
+          activate-environment: titanic-capstone-env
+          use-only-tar-bz2: true
+
+      # 2️⃣ Copy ML model
+      - name: Copy ML model
+        run: |
+          mkdir -p web/ml_models
+          cp ml/model.pkl web/ml_models/
+
+      # Django Setup
+      - name: Collect Django static files
+        run: |
+          cd web
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate titanic-env
+          python manage.py collectstatic --noinput
+          python manage.py migrate          
+
+
+      # 6️⃣ Deploy to Azure (only for dev)
+      - name: Deploy to Azure Web App
+        if: github.ref_name == 'dev'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: titanic-ml-app
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: web

@@ -6,6 +6,7 @@ channels:
 
 dependencies:
   - python=3.10
+  - Django
 
   # Core data science
   - numpy
@@ -26,3 +27,4 @@ dependencies:
   # Pip packages (if needed)
   - pip:
       - joblib
+      - python-dotenv

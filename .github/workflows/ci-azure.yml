@@ -32,8 +32,6 @@ jobs:
       - name: Collect Django static files
         run: |
           cd web
-          source ~/miniconda3/etc/profile.d/conda.sh
-          conda activate titanic-env
           python manage.py collectstatic --noinput
           python manage.py migrate          
 

@@ -30,8 +30,8 @@ jobs:
       
       - name: Copy ML model
         run: |
-          mkdir -p web/ml_models
-          cp models/titanic_model_LR.pkl web/ml_models/
+          mkdir -p web/predictor/ml_models
+          cp models/titanic_model_LR.pkl web/predictor/ml_models/
 
       - name: Collect Django static files
         run: |

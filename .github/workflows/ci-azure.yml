@@ -26,7 +26,7 @@ jobs:
       - name: Copy ML model
         run: |
           mkdir -p web/ml_models
-          cp ml/model.pkl web/ml_models/
+          cp models/titanic_model_LR.pkl web/ml_models/
 
       # Django Setup
       - name: Collect Django static files

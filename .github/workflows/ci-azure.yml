@@ -13,7 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 1️⃣ Setup Conda environment
+      - name: Clean old Conda environment
+        run: |
+          conda env remove -n titanic-capstone-env || true
+    
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
@@ -21,22 +24,24 @@ jobs:
           environment-file: environment.yml
           activate-environment: titanic-capstone-env
           use-only-tar-bz2: true
-
-      # 2️⃣ Copy ML model
+          
+      - name: Check Python and Django
+        run: |
+          python --version
+          python -m pip show django
+      
       - name: Copy ML model
         run: |
           mkdir -p web/ml_models
           cp models/titanic_model_LR.pkl web/ml_models/
 
-      # Django Setup
       - name: Collect Django static files
         run: |
           cd web
           python manage.py collectstatic --noinput
           python manage.py migrate          
 
-
-      # 6️⃣ Deploy to Azure (only for dev)
+      # Deploy to Azure (only for dev)
       - name: Deploy to Azure Web App
         if: github.ref_name == 'dev'
         uses: azure/webapps-deploy@v2

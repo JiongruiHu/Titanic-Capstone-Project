@@ -2,7 +2,7 @@ name: Deploy Titanic Django to Azure
 on:
   push:
     branches:
-      - dev
+      - development
       - feature/ci-azure
 
 jobs:

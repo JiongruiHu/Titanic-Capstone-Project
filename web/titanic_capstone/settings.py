@@ -27,8 +27,21 @@ if dotenv_path.exists():
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-default-for-local-dev')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '.azurewebsites.net',
+    '127.0.0.1',
+    'localhost',
+]
+ 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.azurewebsites.net',
+    
+]
 
+#CSRF_COOKIE_SECURE = False
+#SESSION_COOKIE_SECURE = False
+
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 

@@ -6,9 +6,14 @@ import pandas as pd
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR/"ml_models"/"titanic_model_LR.pkl"
 
-bundle = joblib.load(MODEL_PATH)
-model = bundle["model"]
-features = bundle["features"]
+_model_bundle = None
+
+def get_model():
+    global _model_bundle
+    if _model_bundle is None:
+        _model_bundle = joblib.load(MODEL_PATH)
+    return _model_bundle["model"], _model_bundle["features"]
+
 
 # Convert input data from prediction form into model data form
 def preprocess_data(input_data):
@@ -66,8 +71,9 @@ def preprocess_data(input_data):
     return df 
 
 def prediction(input_data):
-    X = preprocess_data(input_data)
-    print(X)  
+    model, features = get_model()
+    # rest of your preprocessing and prediction...
+    X = preprocess_data(input_data) 
     prediction_result = model.predict(X)[0]
     probability = model.predict_proba(X)[0][1]
     

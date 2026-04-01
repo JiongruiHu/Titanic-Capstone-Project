@@ -46,6 +46,7 @@ Thumbs.db
 # =========================
 db.sqlite3
 media/
+/web/staticfiles
 
 # =========================
 # IDE / editors

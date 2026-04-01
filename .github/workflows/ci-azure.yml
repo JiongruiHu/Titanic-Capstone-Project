@@ -4,6 +4,8 @@ on:
     branches:
       - development
       - feature/ci-azure
+    paths:
+      - 'web/**'  # Only trigger if files in web/ change
 
 jobs:
   deploy:

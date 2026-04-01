@@ -51,7 +51,7 @@ p {
 
 .hero-section {
     height: 320px;
-    background: url("../images/titanic_public.jpg") center/cover no-repeat;
+    background: url("/static/images/titanic_public.jpg") center/cover no-repeat;
     position: relative;
 }
 

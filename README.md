@@ -1,11 +1,37 @@
 # Titanic-Capstone-Project
 
 Python AI / ML student project. Capstone project built on machine learning system based on real-world data and deployed as a Django web application.
-## Contribution
+## My Contribution on the Original Project
 Forked and extended a collaborative project. My contributions include:
 - Data preprocessing
 - Feature engineering
 - Model building, training and evaluation
+
+## ✨ Enhancements in This Fork
+
+This fork extends the original Titanic Capstone Project with several key improvements:
+
+### 1️⃣ Automated CI/CD Deployment to Azure
+- GitHub Actions workflow triggers **only on changes in the `web/` folder**.  
+- Automatically installs dependencies, runs migrations, collects static files, and deploys to Azure Web App.  
+- **Live site:** [https://titanic-ml-app.azurewebsites.net](https://titanic-ml-app.azurewebsites.net)  
+
+### 2️⃣ Static Files & Hero Image Support in Production
+- Configured Django to serve static files in production using **WhiteNoise**.  
+- Ensures hero images, CSS, and JS display correctly on Azure-hosted site and locally.  
+  
+
+### 3️⃣ Environment-Safe Configuration
+- Supports `.env` file for local development and environment variables for production.  
+- `DEBUG` is automatically handled via environment variables for safer production deployment.  
+
+### 5️⃣ Model Training & Preprocessing
+- Added `train.py` for **training new machine learning models** on the Titanic dataset.  
+- Added `preprocess.py` for **data cleaning, feature engineering, and preprocessing**, ensuring consistent inputs for predictions.  
+- Makes it possible to **retrain the model or update preprocessing steps** without modifying the web application. 
+
+
+![CI/CD](https://github.com/JiongruiHu/Titanic-Capstone-Project/actions/workflows/ci-azure.yml/badge.svg)
 ## Contents
 
 1. [Project Overview](#project-overview)
@@ -91,9 +117,9 @@ Evaluation approach:
 - Metrics: Accuracy, Precision/Recall/F1
 
 Result summary:
-- Both models achieve about 81% accuracy.
+- Both models achieve good accuracy.
 - Logistic Regression provides better recall for survivors and is used for deployment.
-- Trained model artifact: `web/predictor/titanic_model.pkl`.
+- Trained model artifact: `web/predictor/mel_models/titanic_model_LR.pkl`.
 
 See detailed discussion in [Overview of the System Architecture](#overview-of-the-system-architecture).
 

@@ -95,10 +95,10 @@ WSGI_APPLICATION = 'titanic_capstone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
+        'NAME': os.environ.get('DB_NAME', 'titanic-db'),
+        'USER': os.environ.get('DB_USER', 'local-user'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'local-password'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
             'encrypt': True,

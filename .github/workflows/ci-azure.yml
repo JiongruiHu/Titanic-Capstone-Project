@@ -29,7 +29,17 @@ jobs:
         run: |
           python --version
           python -m pip show django
-      
+
+      - name: Run Django migrations
+        env:
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: 'False'
+        run: python manage.py migrate
+          
       - name: Copy ML model
         run: |
           mkdir -p web/predictor/ml_models

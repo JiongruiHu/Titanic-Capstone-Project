@@ -39,9 +39,7 @@ jobs:
 
       - name: Collect Django static files
         run: |
-          cd web
-          python manage.py collectstatic --noinput
-          python manage.py migrate          
+          python web/manage.py collectstatic --noinput         
 
       # Deploy to Azure (only for dev)
       - name: Deploy to Azure Web App

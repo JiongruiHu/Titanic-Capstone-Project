@@ -5,7 +5,8 @@ on:
       - development
       - feature/ci-azure
     paths:
-      - 'web/**'  # Only trigger if files in web/ change
+      - 'web/**'  # trigger if files in web/ change
+      - '.github/workflows/ci-azure.yml' # trigger if changes in this file
 
 jobs:
   deploy:

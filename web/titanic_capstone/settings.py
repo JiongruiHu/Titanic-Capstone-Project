@@ -24,7 +24,7 @@ dotenv_path = BASE_DIR / ".env"
 if dotenv_path.exists():
     load_dotenv(dotenv_path)
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-default-for-local-dev')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-default-for-local-dev')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = [
